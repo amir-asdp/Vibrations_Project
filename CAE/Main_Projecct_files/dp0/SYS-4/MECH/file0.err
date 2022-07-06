@@ -1,0 +1,53 @@
+/COM,ANSYS RELEASE 2021 R1           BUILD 21.1      UP20201109       15:10:51
+
+ *** WARNING ***                         CP =       0.391   TIME= 15:10:52
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** WARNING ***                         CP =       0.391   TIME= 15:10:52
+ Material number 10 (used by element 502) should normally have at least  
+ one MP or one TB type command associated with it.  Output of energy by  
+ material may not be available.                                          
+
+ *** WARNING ***                         CP =       0.391   TIME= 15:10:52
+ Overconstraint may occur for Lagrange multiplier or MPC based contact   
+ algorithm.                                                              
+
+ *** WARNING ***                         CP =       0.391   TIME= 15:10:52
+ Certain contact elements (for example 689 & 659) overlap with other.    
+
+ *** WARNING ***                         CP =       2.875   TIME= 15:10:54
+ Fewer modes than the requested number of modes ( 200 ) were computed.   
+ The range specified (FREQB= 0, FREQE= 30) contains only 2 modes.        
+
+ *** WARNING ***                         CP =       2.906   TIME= 15:10:54
+ Material number 10 (used by element 502) should normally have at least  
+ one MP or one TB type command associated with it.  Output of energy by  
+ material may not be available.                                          
+
+ *** WARNING ***                         CP =       3.156   TIME= 15:10:54
+ To avoid duplication when using the LVSCALE command, delete all loads   
+ unless already deleted.                                                 
+
+ *** WARNING ***                         CP =       3.172   TIME= 15:10:54
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** WARNING ***                         CP =       3.172   TIME= 15:10:54
+ Material number 10 (used by element 502) should normally have at least  
+ one MP or one TB type command associated with it.  Output of energy by  
+ material may not be available.                                          
+
+ *** WARNING ***                         CP =       3.172   TIME= 15:10:54
+ Overconstraint may occur for Lagrange multiplier or MPC based contact   
+ algorithm.                                                              
+
+ *** WARNING ***                         CP =       3.172   TIME= 15:10:54
+ Certain contact elements (for example 689 & 659) overlap with other.    
+
+ *** WARNING ***                         CP =       3.281   TIME= 15:10:55
+ Overconstraint may occur for Lagrange multiplier or MPC based contact   
+ algorithm.                                                              
+
+ *** WARNING ***                         CP =       3.281   TIME= 15:10:55
+ Certain contact elements (for example 689 & 659) overlap with other.    

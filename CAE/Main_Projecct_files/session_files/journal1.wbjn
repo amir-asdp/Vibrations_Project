@@ -1,0 +1,527 @@
+# encoding: utf-8
+# 2021 R1
+SetScriptVersion(Version="21.1.216")
+template1 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Exit()
+geometry1.Edit()
+geometry1.Exit()
+geometry1.Edit()
+geometry1.Exit()
+geometry1.Edit()
+geometry1.Exit()
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+matlProp1 = material1.CreateProperty(
+    Name="Elasticity",
+    Behavior="Orthotropic",
+    Qualifiers={"Definition": "", "Behavior": "Orthotropic"})
+matlProp2 = material1.CreateProperty(
+    Name="Elasticity",
+    Behavior="Anisotropic",
+    Qualifiers={"Definition": "", "Behavior": "Anisotropic"})
+matlProp3 = material1.CreateProperty(
+    Name="Damping Factor (β)",
+    Qualifiers={"Definition": "", "Behavior": ""})
+materialPropertyData1 = matlProp2.GetPropertyData(
+    Name="Elasticity",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic", "Derive from": "Young's Modulus and Poisson's Ratio"})
+materialPropertyData1.SetSuppression(Suppressed=False)
+materialPropertyData2 = matlProp2.GetPropertyData(
+    Name="Elasticity",
+    Qualifiers={"Definition": "", "Behavior": "Orthotropic"})
+materialPropertyData2.SetSuppression(Suppressed=False)
+materialPropertyData3 = matlProp2.GetPropertyData(
+    Name="Elasticity",
+    Qualifiers={"Definition": "", "Behavior": "Anisotropic", "Matrix Type": "Stiffness", "Format": "MAPDL"})
+materialPropertyData3.SetSuppression(Suppressed=False)
+matl1 = engineeringData1.CreateMaterial(Name="Assuming Material")
+materialPropertyData1.SetSuppression(Suppressed=False)
+materialPropertyData2.SetSuppression(Suppressed=False)
+materialPropertyData3.SetSuppression(Suppressed=False)
+materialPropertyData2.SetSuppression(Suppressed=False)
+matlProp4 = matl1.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+material1.Delete()
+matlProp5 = matl1.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp4.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["27500 [kg m^-3]"]])
+matlProp5.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["0.289 [Pa]"]])
+matlProp5.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["72 [Pa]"]])
+matlProp5.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp5.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["7.2000000000000009E-08 [GPa]"]])
+matlProp5.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp5.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+model1.Edit()
+model1.Exit()
+system2 = template1.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+system1.Delete()
+engineeringData2 = system2.GetContainer(ComponentName="Engineering Data")
+material2 = engineeringData2.GetMaterial(Name="Structural Steel")
+material2.Delete()
+matl2 = engineeringData2.CreateMaterial(Name="Assuming Material")
+matlProp6 = matl2.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+matlProp7 = matl2.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp7.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp6.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["2700 [kg m^-3]"]])
+matlProp7.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp7.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+geometry2 = system2.GetContainer(ComponentName="Geometry")
+geometry2.Edit()
+geometry2.Exit()
+modelComponent2 = system2.GetComponent(Name="Model")
+modelComponent2.Refresh()
+model2 = system2.GetContainer(ComponentName="Model")
+model2.Edit()
+model2.Exit()
+template2 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+system3 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system2)
+geometryComponent1 = system3.GetComponent(Name="Geometry")
+geometryComponent2 = system2.GetComponent(Name="Geometry")
+geometryComponent1.ReplaceWithShare(
+    TargetSystem=system3,
+    ComponentToShare=geometryComponent2,
+    SourceSystem=system2)
+modelComponent3 = system3.GetComponent(Name="Model")
+modelComponent3.Refresh()
+engineeringDataComponent1 = system3.GetComponent(Name="Engineering Data")
+engineeringDataComponent2 = system2.GetComponent(Name="Engineering Data")
+engineeringDataComponent1.ReplaceWithShare(
+    TargetSystem=system3,
+    ComponentToShare=engineeringDataComponent2,
+    SourceSystem=system2)
+modelComponent3.Refresh()
+model3 = system3.GetContainer(ComponentName="Model")
+model3.Edit()
+setup1 = system3.GetContainer(ComponentName="Setup")
+setup1.Edit()
+model3.Exit()
+solution1 = system3.GetContainer(ComponentName="Solution")
+solution1.Edit()
+model3.Exit()
+model3.Edit()
+model3.Exit()
+model3.Edit()
+system4 = template1.CreateSystem(
+    Position="Right",
+    RelativeTo=system3)
+system5 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system4)
+engineeringDataComponent3 = system5.GetComponent(Name="Engineering Data")
+engineeringDataComponent4 = system4.GetComponent(Name="Engineering Data")
+engineeringDataComponent3.ReplaceWithShare(
+    TargetSystem=system5,
+    ComponentToShare=engineeringDataComponent4,
+    SourceSystem=system4)
+geometryComponent3 = system5.GetComponent(Name="Geometry")
+geometryComponent4 = system4.GetComponent(Name="Geometry")
+geometryComponent3.ReplaceWithShare(
+    TargetSystem=system5,
+    ComponentToShare=geometryComponent4,
+    SourceSystem=system4)
+modelComponent4 = system4.GetComponent(Name="Model")
+modelComponent5 = system5.GetComponent(Name="Model")
+modelComponent4.TransferData(TargetComponent=modelComponent5)
+system5.Delete()
+system6 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system4)
+engineeringDataComponent5 = system6.GetComponent(Name="Engineering Data")
+engineeringDataComponent5.ReplaceWithShare(
+    TargetSystem=system6,
+    ComponentToShare=engineeringDataComponent4,
+    SourceSystem=system4)
+geometryComponent5 = system6.GetComponent(Name="Geometry")
+geometryComponent5.ReplaceWithShare(
+    TargetSystem=system6,
+    ComponentToShare=geometryComponent4,
+    SourceSystem=system4)
+modelComponent6 = system6.GetComponent(Name="Model")
+modelComponent4.TransferData(TargetComponent=modelComponent6)
+system6.Delete()
+system4.Delete()
+system7 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system2)
+system7.DisplayText = "Cantilever Beam"
+system8 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system7)
+engineeringDataComponent6 = system8.GetComponent(Name="Engineering Data")
+engineeringDataComponent7 = system7.GetComponent(Name="Engineering Data")
+engineeringDataComponent6.ReplaceWithShare(
+    TargetSystem=system8,
+    ComponentToShare=engineeringDataComponent7,
+    SourceSystem=system7)
+geometryComponent6 = system8.GetComponent(Name="Geometry")
+geometryComponent7 = system7.GetComponent(Name="Geometry")
+geometryComponent6.ReplaceWithShare(
+    TargetSystem=system8,
+    ComponentToShare=geometryComponent7,
+    SourceSystem=system7)
+modelComponent7 = system7.GetComponent(Name="Model")
+modelComponent8 = system8.GetComponent(Name="Model")
+modelComponent7.TransferData(TargetComponent=modelComponent8)
+system8.Delete()
+system9 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system7)
+system10 = system2.Duplicate(
+    ComponentsToShare=[],
+    RelativeTo=system2)
+system10.Delete()
+engineeringDataComponent8 = system9.GetComponent(Name="Engineering Data")
+engineeringDataComponent8.ReplaceWithShare(
+    TargetSystem=system9,
+    ComponentToShare=engineeringDataComponent7,
+    SourceSystem=system7)
+engineeringData3 = system7.GetContainer(ComponentName="Engineering Data")
+material3 = engineeringData3.GetMaterial(Name="Structural Steel")
+material3.Delete()
+matl3 = engineeringData3.CreateMaterial(Name="Assuming Material")
+matlProp8 = matl3.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+matlProp9 = matl3.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp9.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp8.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["2700 [kg m^-3]"]])
+matlProp9.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp9.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+geometry3 = system7.GetContainer(ComponentName="Geometry")
+geometry3.Edit(IsSpaceClaimGeometry=True)
+geometry3.Exit()
+geometry3.Edit()
+geometry3.Exit()
+geometryComponent8 = system9.GetComponent(Name="Geometry")
+geometryComponent8.ReplaceWithShare(
+    TargetSystem=system9,
+    ComponentToShare=geometryComponent7,
+    SourceSystem=system7)
+geometryComponent8.DeleteShare(System=system9)
+modelComponent7.Refresh()
+modelComponent9 = system9.GetComponent(Name="Model")
+modelComponent9.Refresh()
+geometryComponent8.ReplaceWithShare(
+    TargetSystem=system9,
+    ComponentToShare=geometryComponent7,
+    SourceSystem=system7)
+modelComponent9.Refresh()
+system9.Delete()
+system7.Delete()
+model3.Edit()
+system11 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system2)
+system12 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system11)
+engineeringData4 = system11.GetContainer(ComponentName="Engineering Data")
+material4 = engineeringData4.GetMaterial(Name="Structural Steel")
+material4.Delete()
+matl4 = engineeringData4.CreateMaterial(Name="Assuming Material")
+matlProp10 = matl4.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+matlProp11 = matl4.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp11.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp10.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["2700 [kg m^-3]"]])
+matlProp11.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp11.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+engineeringDataComponent9 = system12.GetComponent(Name="Engineering Data")
+engineeringDataComponent10 = system11.GetComponent(Name="Engineering Data")
+engineeringDataComponent9.ReplaceWithShare(
+    TargetSystem=system12,
+    ComponentToShare=engineeringDataComponent10,
+    SourceSystem=system11)
+geometryComponent9 = system12.GetComponent(Name="Geometry")
+geometryComponent10 = system11.GetComponent(Name="Geometry")
+geometryComponent9.ReplaceWithShare(
+    TargetSystem=system12,
+    ComponentToShare=geometryComponent10,
+    SourceSystem=system11)
+system12.Delete()
+system11.Delete()
+system13 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system2)
+system14 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system13)
+geometryComponent11 = system14.GetComponent(Name="Geometry")
+geometryComponent12 = system13.GetComponent(Name="Geometry")
+geometryComponent11.ReplaceWithShare(
+    TargetSystem=system14,
+    ComponentToShare=geometryComponent12,
+    SourceSystem=system13)
+modelComponent10 = system13.GetComponent(Name="Model")
+modelComponent11 = system14.GetComponent(Name="Model")
+modelComponent10.TransferData(TargetComponent=modelComponent11)
+system14.Delete()
+system15 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system13)
+engineeringDataComponent11 = system15.GetComponent(Name="Engineering Data")
+engineeringDataComponent12 = system13.GetComponent(Name="Engineering Data")
+engineeringDataComponent11.ReplaceWithShare(
+    TargetSystem=system15,
+    ComponentToShare=engineeringDataComponent12,
+    SourceSystem=system13)
+geometryComponent13 = system15.GetComponent(Name="Geometry")
+geometryComponent13.ReplaceWithShare(
+    TargetSystem=system15,
+    ComponentToShare=geometryComponent12,
+    SourceSystem=system13)
+modelComponent12 = system15.GetComponent(Name="Model")
+modelComponent10.TransferData(TargetComponent=modelComponent12)
+system15.Delete()
+system16 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system13)
+geometryComponent14 = system16.GetComponent(Name="Geometry")
+geometryComponent14.ReplaceWithShare(
+    TargetSystem=system16,
+    ComponentToShare=geometryComponent12,
+    SourceSystem=system13)
+modelComponent13 = system16.GetComponent(Name="Model")
+modelComponent10.TransferData(TargetComponent=modelComponent13)
+engineeringData5 = system13.GetContainer(ComponentName="Engineering Data")
+material5 = engineeringData5.GetMaterial(Name="Structural Steel")
+material5.Delete()
+matl5 = engineeringData5.CreateMaterial(Name="Assuming MAterial")
+matl5.DisplayName = "Assuming Material"
+matlProp12 = matl5.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+matlProp13 = matl5.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp13.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp12.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["27700 [kg m^-3]"]])
+matlProp12.SetData(
+    Variables=["Density"],
+    Values=[["2700 [kg m^-3]"]])
+matlProp13.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp13.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+engineeringDataComponent12.Update(AllDependencies=True)
+model4 = system16.GetContainer(ComponentName="Model")
+model4.Refresh(UpstreamContainersToRefresh=[engineeringData5])
+model4.Edit()
+system16.Delete()
+ClearMessages()
+geometry4 = system13.GetContainer(ComponentName="Geometry")
+geometry4.Edit()
+system17 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system13)
+geometry4.Exit()
+geometryComponent15 = system17.GetComponent(Name="Geometry")
+geometryComponent15.ReplaceWithShare(
+    TargetSystem=system17,
+    ComponentToShare=geometryComponent12,
+    SourceSystem=system13)
+modelComponent10.Refresh()
+model5 = system13.GetContainer(ComponentName="Model")
+model5.Edit()
+model5.Exit()
+modelComponent14 = system17.GetComponent(Name="Model")
+modelComponent14.Refresh()
+model6 = system17.GetContainer(ComponentName="Model")
+model6.Edit()
+model6.Exit()
+geometryComponent15.DeleteShare(System=system17)
+system17.Delete()
+system13.Delete()
+model3.Edit()
+system18 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system2)
+engineeringDataComponent13 = system18.GetComponent(Name="Engineering Data")
+geometryComponent16 = system18.GetComponent(Name="Geometry")
+modelComponent15 = system18.GetComponent(Name="Model")
+system19 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent13, geometryComponent16, modelComponent15],
+    Position="Right",
+    RelativeTo=system18)
+engineeringData6 = system18.GetContainer(ComponentName="Engineering Data")
+material6 = engineeringData6.GetMaterial(Name="Structural Steel")
+material6.Delete()
+matl6 = engineeringData6.CreateMaterial(Name="Assuming Material")
+system20 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent2, modelComponent2],
+    Position="Below",
+    RelativeTo=system3)
+system3.Delete()
+model2.Edit()
+model2.Exit()
+system2.Delete()
+system20.Delete()
+matlProp14 = matl6.CreateProperty(
+    Name="Density",
+    Qualifiers={"Definition": "", "Behavior": ""})
+matlProp15 = matl6.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp15.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp14.SetData(
+    Index=-1,
+    Variables=["Density"],
+    Values=[["2700 [kg m^-3]"]])
+matlProp15.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["72 [GPa]"]])
+matlProp15.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.289"]])
+matl6.SetAsDefaultSolidForModel()
+geometry5 = system18.GetContainer(ComponentName="Geometry")
+geometry5.Edit()
+geometry5.Exit()
+modelComponent15.Refresh()
+model7 = system18.GetContainer(ComponentName="Model")
+model7.Edit()
+model7.Exit()
+geometry5.Edit(IsSpaceClaimGeometry=True)
+geometry5.Exit()
+geometry5.Edit()
+geometry5.Exit()
+geometry5.Edit()
+geometry5.Exit()
+modelComponent15.Refresh()
+model7.Edit()
+geometry5.Edit()
+geometry5.Exit()
+geometry5.Edit()
+geometry5.Exit()
+modelComponent15.Refresh()
+model7.Edit()
+model7.Exit()
+model7.Edit()
+system21 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system18)
+engineeringDataComponent14 = system21.GetComponent(Name="Engineering Data")
+geometryComponent17 = system21.GetComponent(Name="Geometry")
+modelComponent16 = system21.GetComponent(Name="Model")
+system22 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent14, geometryComponent17, modelComponent16],
+    Position="Right",
+    RelativeTo=system21)
+engineeringDataComponent14.ReplaceWithShare(
+    TargetSystem=system21,
+    ComponentToShare=engineeringDataComponent13,
+    SourceSystem=system18)
+geometry6 = system22.GetContainer(ComponentName="Geometry")
+geometry6.Edit()
+geometry6.Exit()
+modelComponent17 = system22.GetComponent(Name="Model")
+modelComponent17.Refresh()
+model8 = system22.GetContainer(ComponentName="Model")
+model8.Edit()
+model8.Exit()
+system18.DisplayText = "Cantilever Beam with Absorber"
+system21.DisplayText = "Simple Cantilever Beam"
+model7.Exit()
+geometry5.Edit()
+geometry5.Exit()
+model7.Edit()
+model7.Exit()
+Save(Overwrite=True)
